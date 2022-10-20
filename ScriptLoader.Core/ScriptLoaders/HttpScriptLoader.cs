@@ -25,7 +25,7 @@ namespace ScriptLoader.Core.ScriptLoaders
                     yield return Task.Run(async () =>
                     {
                         var src = scriptNode.Attributes.First(c => c.Name == "src").Value;
-                        var scriptBody = await GetHtml(src, cancellationToken);
+                        var scriptBody = await GetDoc(src, cancellationToken);
                         return new Script(scriptBody);
                     });
 
@@ -39,33 +39,19 @@ namespace ScriptLoader.Core.ScriptLoaders
 
         private async Task<HtmlNodeCollection?> GetScripts(string address, CancellationToken cancellationToken)
         {
-
-            try
-            {
-                var html = await GetHtml(address, cancellationToken);
-                var htmlDoc = new HtmlDocument();
-                htmlDoc.LoadHtml(html);
-                return htmlDoc.DocumentNode.SelectNodes("//script");
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            var html = await GetDoc(address, cancellationToken);
+            var htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(html);
+            return htmlDoc.DocumentNode.SelectNodes("//script");
         }
-        private async Task<string> GetHtml(string address, CancellationToken cancellationToken)
+        private async Task<string> GetDoc(string address, CancellationToken cancellationToken)
         {
             using var httpClient = httpClientFactory.CreateClient();
-            try
-            {
-                var response = await httpClient.GetAsync(address, cancellationToken);
-                if (!response.IsSuccessStatusCode)
-                    throw new Exception($"Http request failed with code {(int)response.StatusCode}. Try again!");
-                return await response.Content.ReadAsStringAsync(cancellationToken);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+
+            var response = await httpClient.GetAsync(address, cancellationToken);
+            if (!response.IsSuccessStatusCode)
+                throw new Exception($"Http request failed with code {(int)response.StatusCode}. Try again!");
+            return await response.Content.ReadAsStringAsync(cancellationToken);
         }
 
 
