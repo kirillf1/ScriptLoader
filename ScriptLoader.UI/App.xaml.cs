@@ -40,11 +40,11 @@ namespace ScriptLoader.UI
                 client.DefaultRequestHeaders.Add("User-Agent", configuration.GetSection("HttpClientSettings")["UserAgent"]);
             });
             var proxySection = configuration.GetSection("ProxySettings");
-            if (!string.IsNullOrEmpty(proxySection["Address"]) && int.TryParse(proxySection["Port"], out var port))
+            if (!string.IsNullOrEmpty(proxySection["Host"]) && int.TryParse(proxySection["Port"], out var port))
             {
-                httpBuilder.ConfigureHttpMessageHandlerBuilder(h => new SocketsHttpHandler
+                httpBuilder.ConfigurePrimaryHttpMessageHandler(h =>  new SocketsHttpHandler
                 {
-                    Proxy = new WebProxy(proxySection["Address"], port)
+                    Proxy = new WebProxy(proxySection["Host"], port)
                     {
                         Credentials = new NetworkCredential(proxySection["login"], proxySection["password"])
                     }
