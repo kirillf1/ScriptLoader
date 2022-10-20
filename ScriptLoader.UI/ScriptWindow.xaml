@@ -8,7 +8,11 @@
         Title="ScriptWindow" Height="450" Width="800">
     <Grid>
         <Label Content="Скрипт" HorizontalAlignment="Left" Margin="48,30,0,0" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="48,82,0,0" TextWrapping="Wrap" Text="{Binding ScriptBody}" VerticalAlignment="Top" Height="323" Width="712"/>
-
+        <ScrollViewer Height="239" VerticalScrollBarVisibility="Auto">
+            <TextBlock   
+         ScrollViewer.HorizontalScrollBarVisibility="Auto"
+         ScrollViewer.VerticalScrollBarVisibility="Auto"
+         ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Margin="48,82,0,0" TextWrapping="Wrap" Text="{Binding ScriptBody}" VerticalAlignment="Top" Height="323" Width="Auto"/>
+        </ScrollViewer>
     </Grid>
 </Window>
