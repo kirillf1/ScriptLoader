@@ -1,0 +1,14 @@
+﻿<Window x:Class="ScriptLoader.UI.ScriptWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ScriptLoader.UI"
+        mc:Ignorable="d"
+        Title="ScriptWindow" Height="450" Width="800">
+    <Grid>
+        <Label Content="Скрипт" HorizontalAlignment="Left" Margin="48,30,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="48,82,0,0" TextWrapping="Wrap" Text="{Binding ScriptBody}" VerticalAlignment="Top" Height="323" Width="712"/>
+
+    </Grid>
+</Window>
